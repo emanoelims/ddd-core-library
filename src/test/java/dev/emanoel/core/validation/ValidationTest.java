@@ -25,4 +25,15 @@ class ValidationTest {
     assertTrue(actualValidation.failure());
     assertEquals(expectedErrorMessage, actualValidation.errorMessage());
   }
+
+  @Test
+  void givenEmptyParam_whenCallCheckEmpty_thenValidationShouldFail() {
+    var param = "  ";
+    var expectedErrorMessage = "'field' cannot be empty";
+
+    var actualValidation = Validation.of(param).checkEmpty(expectedErrorMessage);
+
+    assertTrue(actualValidation.failure());
+    assertEquals(expectedErrorMessage, actualValidation.errorMessage());
+  }
 }
