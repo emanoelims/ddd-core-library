@@ -1,5 +1,7 @@
 package dev.emanoel.core.validation;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * responsible for validating fields.
  *
@@ -28,6 +30,24 @@ public class Validation<F> {
       this.errorMessage = errorMessage;
     }
     return this;
+  }
+
+  /**
+   * Check if the field is empty.
+   *
+   * @param errorMessage error message for failed validation.
+   * @return Validation
+   */
+  public Validation<F> checkEmpty(final String errorMessage) {
+    var fieldString = convertFieldToString(requireNonNull(field));
+    if (fieldString.isBlank()) {
+      this.errorMessage = errorMessage;
+    }
+    return this;
+  }
+
+  private String convertFieldToString(final F field) {
+    return (field instanceof String) ? (String) field : null;
   }
 
   public boolean failure() {
