@@ -14,4 +14,15 @@ class ValidationTest {
 
     assertNotNull(actualValidation);
   }
+
+  @Test
+  void givenNullParam_whenCallCheckNull_thenValidationShouldFail() {
+    var param = (String) null;
+    var expectedErrorMessage = "'name' cannot be null";
+
+    var actualValidation = Validation.of(param).checkNull(expectedErrorMessage);
+
+    assertTrue(actualValidation.failure());
+    assertEquals(expectedErrorMessage, actualValidation.errorMessage());
+  }
 }
